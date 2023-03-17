@@ -1,0 +1,187 @@
+{% extends "_auth_base.html" %}
+{% load static %}
+{% block title %}
+Rooms
+{% endblock title %}
+
+{% block content %}
+<!-- <div class="flex flex-row items-center w-full mx-auto justify-between">
+    <div class="flex flex-col text-center lg:text-left">
+        
+    </div>
+    <div class="flex h-full">
+        
+    </div>
+</div> -->
+
+
+
+<main class="mt-16 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-32">
+    <div class="flex flex-col">
+
+
+        <div class="lg:flex lg:items-center lg:justify-between">
+
+            <div class="mt-5 flex lg:mt-0 lg:ml-4">
+
+
+                <span class="sm:ml-3">
+                    <a href="{% url 'chat:chat_room_create' %}"
+                        class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <!-- Heroicon name: mini/check -->
+                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Create Room
+                    </a>
+                </span>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                <span class="block">Ready to chat?</span>
+                <span class="block text-[#fd913c]">Create a Room or join one</span>
+            </h2>
+            <fieldset class="w-full space-y-1 dark:text-gray-100">
+                <label for="Room" class="hidden">Room</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                        <button type="button" title="search" class="p-1 focus:outline-none focus:ring">
+
+                            <svg fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+
+                        </button>
+                    </span>
+                    <input id="room-name-input" type="text" placeholder="Room-Name"
+                        class="w-auto py-2 pl-10 text-sm rounded-md sm:w-full focus:outline-none dark:bg-gray-800 dark:text-[#fd913c] focus:dark:bg-gray-900 focus:dark:border-[#fd913c]">
+                </div>
+                <button id="room-name-submit" type="button"
+                    class="block flex-shrink-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:flex-1">Connect</button>
+            </fieldset>
+        </div> -->
+        <div
+            class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
+            <div class="p-4 shadow-md dark:text-gray-900 w-full">
+                <div class="p-6">
+                    <div class="flex items-start justify-between">
+                        <h2 class="text-lg font-medium text-gray-900" id="slide-over-title"> Rooms Available </h2>
+                        <div class="ml-3 flex h-7 items-center">
+                            <button type="button"
+                                class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500"
+                                @click="open = false">
+                                <span class="sr-only">Close panel</span>
+                                <svg class="h-6 w-6" x-description="Heroicon name: outline/x"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul role="list" class="flex-1 divide-y divide-gray-200 overflow-y-auto">
+                    <li>
+                        {% for room in rooms %}
+
+                        <div class="group relative flex items-center py-6 px-5">
+                            <a href="{% url 'chat:chat_room' room.slug %}" class="-m-1 block flex-1 p-1">
+                                <div class="absolute inset-0 group-hover:bg-[#]" aria-hidden="true"></div>
+                                <div class="relative flex min-w-0 flex-1 items-center">
+                                    <span class="relative inline-block flex-shrink-0">
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                            alt="">
+                                        <!-- Online: "bg-green-400", Offline: "bg-gray-300" -->
+                                        {% if room.get_online_count %}
+                                        <span
+                                            class="bg-green-400 absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white"
+                                            aria-hidden="true"></span>
+                                        {% else %}
+                                        <span
+                                            class="bg-gray-300 absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white"
+                                            aria-hidden="true"></span>
+
+                                        {% endif %}
+                                    </span>
+                                    <div class="ml-4 truncate">
+                                        <p class="truncate text-sm font-medium text-gray-900">{{ room }}</p>
+                                        <!-- <p class="truncate text-sm text-gray-500">@lesliealexander</p> -->
+                                    </div>
+                                </div>
+                            </a>
+                            <div x-data="{ open: false }"
+                                @keydown.escape.stop="open = false; focusButton()" @click.away="onClickAway($event)"
+                                class="relative ml-2 inline-block flex-shrink-0 text-left">
+                                <button type="button"
+                                    class="group relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    id="options-menu-0-button" x-ref="button" @click="open = !open"
+                                    @keyup.space.prevent="onButtonEnter()" @keydown.enter.prevent="onButtonEnter()"
+                                    aria-expanded="false" aria-haspopup="true" x-bind:aria-expanded="open.toString()"
+                                    @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()">
+                                    <span class="sr-only">Open options menu</span>
+                                    <span class="flex h-full w-full items-center justify-center rounded-full">
+                                        <svg class="h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                            x-description="Heroicon name: solid/dots-vertical"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                                    x-transition:enter-start="transform opacity-0 scale-95"
+                                    x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    x-description="Dropdown panel, show/hide based on dropdown state."
+                                    class="absolute top-0 right-9 z-10 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    x-ref="menu-items" x-bind:aria-activedescendant="activeDescendant" role="menu"
+                                    aria-orientation="vertical" aria-labelledby="options-menu-0-button" tabindex="-1"
+                                    @keydown.arrow-up.prevent="onArrowUp()" @keydown.arrow-down.prevent="onArrowDown()"
+                                    @keydown.tab="open = false" @keydown.enter.prevent="open = false; focusButton()"
+                                    @keyup.space.prevent="open = false; focusButton()">
+                                    <div class="py-1" role="none">
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm" x-state:on="Active"
+                                            x-state:off="Not Active"
+                                            :class="{ 'bg-gray-100 text-gray-900': activeIndex === 0, 'text-gray-700': !(activeIndex === 0) }"
+                                            role="menuitem" tabindex="-1" id="options-menu-0-item-0"
+                                            @mouseenter="activeIndex = 0" @mouseleave="activeIndex = -1"
+                                            @click="open = false; focusButton()">View profile</a>
+                                        <a href="#" class="text-gray-700 block px-4 py-2 text-sm"
+                                            :class="{ 'bg-gray-100 text-gray-900': activeIndex === 1, 'text-gray-700': !(activeIndex === 1) }"
+                                            role="menuitem" tabindex="-1" id="options-menu-0-item-1"
+                                            @mouseenter="activeIndex = 1" @mouseleave="activeIndex = -1"
+                                            @click="open = false; focusButton()">Send message</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </li>
+
+                    <!-- More people... -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

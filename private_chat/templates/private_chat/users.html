@@ -1,0 +1,49 @@
+{% extends "_auth_base.html" %}
+{% load static %}
+{% block title %}
+Dialogs List
+{% endblock title %}
+{% block content %}
+<div class="py-10 h-screen bg-gray-300 px-2">
+    <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg">
+        <div class="md:flex">
+            <div class="w-full p-4">
+                <div class="relative"> <input type="text"
+                        class="w-full h-12 rounded focus:outline-none px-3 focus:shadow-md" placeholder="Search..."> <i
+                        class="fa fa-search absolute right-3 top-4 text-gray-300"></i> </div>
+                <ul>
+                    {% for user in users %}
+                    {% if user.id is not request.user.id %}
+                    <a href="{% url 'private_social:messages_list' user.id %}"
+                        class="flex justify-between items-center bg-white mt-2 p-2 hover:shadow-lg rounded cursor-pointer transition">
+                        <div class="flex ml-2"> 
+                            <span class="relative inline-block flex-shrink-0">
+                            <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random" width="40"
+                                height="40" class="rounded-full">
+                                <span class="bg-green-400 absolute top-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white"
+                                    aria-hidden="true"></span>
+                                </span>
+                            <div class="flex flex-col ml-2">
+                                <span class="font-medium text-black">
+                                    {{user.username}}
+                                    {{ user.last_login }}
+                                </span>
+                                <!-- <span class="text-sm text-gray-400 truncate w-32">{{ user.last_message.text }}</span> -->
+                            </div>
+                        </div>
+
+                        <!-- <div class="flex flex-col items-center"> <span class="text-gray-300">{{ message.created
+                                                    }}</span> <i class="fa fa-star text-green-400"></i> </div> -->
+                    </a>
+                    {% endif %}
+                    
+                    {% empty %}
+                    <h1>Empty</h1>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{ request.user.id|json_script:"user-name" }}
+{% endblock content %}

@@ -1,0 +1,59 @@
+[
+    {
+        "model": "private_chat.PrivateChatRoom",
+        "pk": 1,
+        "fields": {
+            "created_at":"2021-03-21T06:49:09.925Z",
+            "updated_at":"2021-03-21T06:49:09.925Z",
+            "created": "2021-03-21T06:49:09.925Z",
+            "modified": "2021-03-21T06:49:09.925Z",
+            "user1": 1,
+            "user2": 2
+        }
+    },
+    {
+        "model": "private_chat.ChatMessage",
+        "pk": 1,
+        "fields": {
+            "created_at":"2021-03-21T06:49:09.925Z",
+            "updated_at":"2021-03-21T06:49:09.925Z",
+            "created": "2021-03-21T06:49:09.921Z",
+            "modified": "2021-03-21T06:49:09.921Z",
+            "is_removed": false,
+            "sender": 1,
+            "recipient": 2,
+            "message": "Hey!",
+            "read": true
+        }
+    },
+    {
+        "model": "private_chat.ChatMessage",
+        "pk": 2,
+        "fields": {
+            "created_at":"2021-03-21T06:49:09.925Z",
+            "updated_at":"2021-03-21T06:49:09.925Z",
+            "created": "2021-03-21T06:49:31.032Z",
+            "modified": "2021-03-21T06:49:31.032Z",
+            "is_removed": false,
+            "sender": 2,
+            "recipient": 1,
+            "message": "Hello!",
+            "read": false
+        }
+    },
+    {
+        "model": "private_chat.ChatMessage",
+        "pk": 3,
+        "fields": {
+            "created_at":"2021-03-21T06:49:09.925Z",
+            "updated_at":"2021-03-21T06:49:09.925Z",
+            "created": "2021-03-21T06:49:33.302Z",
+            "modified": "2021-03-21T06:49:33.302Z",
+            "is_removed": false,
+            "sender": 2,
+            "recipient": 1,
+            "message": "How are you ?",
+            "read": false
+        }
+    }
+]
